@@ -1,0 +1,1 @@
+<?phpinclude("adminsession.php");$ngoid=$_REQUEST['ngoid'];echo $statename = $cmn->getvalfield($connection,"m_ngo","design_capacity","ngoid='$ngoid'"); ?>
