@@ -3,8 +3,8 @@
 
 $host_name="localhost";
 	$db_name="suh_karnataka";
-	$db_user="suh_karnataka";
-	$db_pwd="J#k1F^778[HU1";
+	$db_user="root";
+	$db_pwd="";
 	
 
 
