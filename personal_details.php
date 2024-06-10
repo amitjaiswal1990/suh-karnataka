@@ -74,8 +74,7 @@ if ( isset( $_POST[ 'submit' ] ) ) {
 		$ref_mobile=$_POST['ref_mobile'];
 		$ref_occupation=$_POST['ref_occupation'];
 		$ref_remark=$_POST['ref_remark'];
-
-
+		$other_id_proof = $_POST['other_id_proof'];
 
 	//check Duplicate
 	if ( $keyvalue == 0 ) { 
@@ -91,7 +90,7 @@ if ( isset( $_POST[ 'submit' ] ) ) {
 
 		domicile_state='$domicile_state',domicile_district='$domicile_district',domicile_village='$domicile_village',marital_status='$marital_status',last_stayed_place='$last_stayed_place',period_stayed_place='$period_stayed_place',connon_language='$connon_language',language_read='$language_read',language_write='$language_write',	
 
-		language_speak='$language_speak',qualification='$qualification',study_place='$study_place',health_condition='$health_condition',physical_ailment='$physical_ailment',employment='$employment',emp_type='$emp_type',skill='$skill',skill_type='$skill_type',ssecurity='$ssecurity',adhaar_no='$adhaar_no',ration_no='$ration_no',bankac='$bankac',userid='$loginid',noofchild='$noofchild',differently_abled='$differently_abled',remarks='$remarks',entry_time='$entry_time',createdate='$createdate',referrer_name='$referrer_name',ref_mobile='$ref_mobile',ref_occupation='$ref_occupation',ref_remark='$ref_remark'");
+		language_speak='$language_speak',qualification='$qualification',study_place='$study_place',health_condition='$health_condition',physical_ailment='$physical_ailment',employment='$employment',emp_type='$emp_type',skill='$skill',skill_type='$skill_type',ssecurity='$ssecurity',adhaar_no='$adhaar_no',ration_no='$ration_no',bankac='$bankac',userid='$loginid',noofchild='$noofchild',differently_abled='$differently_abled',remarks='$remarks',entry_time='$entry_time',createdate='$createdate',referrer_name='$referrer_name',ref_mobile='$ref_mobile',ref_occupation='$ref_occupation',ref_remark='$ref_remark',other_id_proof='$other_id_proof'");
 
 		$keyvalue = mysqli_insert_id($connection);
 
@@ -110,7 +109,7 @@ if ( isset( $_POST[ 'submit' ] ) ) {
 
 					domicile_state='$domicile_state',domicile_district='$domicile_district',domicile_village='$domicile_village',marital_status='$marital_status',last_stayed_place='$last_stayed_place',period_stayed_place='$period_stayed_place',connon_language='$connon_language',language_read='$language_read',language_write='$language_write',	
 
-					language_speak='$language_speak',qualification='$qualification',study_place='$study_place',health_condition='$health_condition',physical_ailment='$physical_ailment',employment='$employment',emp_type='$emp_type',skill='$skill',skill_type='$skill_type',ssecurity='$ssecurity',adhaar_no='$adhaar_no',ration_no='$ration_no',bankac='$bankac',userid='$loginid',noofchild='$noofchild',createdate='$createdate',differently_abled='$differently_abled',remarks='$remarks',entry_time='$entry_time',referrer_name='$referrer_name',ref_mobile='$ref_mobile',ref_occupation='$ref_occupation',ref_remark='$ref_remark' where id = '$keyvalue'");
+					language_speak='$language_speak',qualification='$qualification',study_place='$study_place',health_condition='$health_condition',physical_ailment='$physical_ailment',employment='$employment',emp_type='$emp_type',skill='$skill',skill_type='$skill_type',ssecurity='$ssecurity',adhaar_no='$adhaar_no',ration_no='$ration_no',bankac='$bankac',userid='$loginid',noofchild='$noofchild',createdate='$createdate',differently_abled='$differently_abled',remarks='$remarks',entry_time='$entry_time',referrer_name='$referrer_name',ref_mobile='$ref_mobile',ref_occupation='$ref_occupation',ref_remark='$ref_remark',other_id_proof='$other_id_proof' where id = '$keyvalue'");
 
 					//$keyvalue = mysqli_insert_id($connection);
 
@@ -204,6 +203,7 @@ if (isset($_GET[$tblpkey])){
 	$ref_mobile=$rowedit['ref_mobile'];
 	$ref_occupation=$rowedit['ref_occupation'];
 	$ref_remark=$rowedit['ref_remark'];
+	$other_id_proof=$rowedit['other_id_proof'];
 } else {  
 	//$districtid =  '';			
 	//$ngoid = '';
@@ -250,6 +250,7 @@ if (isset($_GET[$tblpkey])){
 	$ref_mobile='';
 	$ref_occupation='';
 	$ref_remark='';
+	$other_id_proof='';
 	$lastid=$cmn->getvalfield($connection,"personal_details","max(id)+1","1=1");
 
 	$statecode=$cmn->getvalfield($connection,"m_state","statecode","1=1");
@@ -884,13 +885,15 @@ if (isset($_GET[$tblpkey])){
 
                      <div id="social" <?php if($ssecurity=='Yes'){ ?> <?php } else { ?>style="display:none;" <?php } ?> >
 
-                      <span><strong>Adhar Number</strong></span>
+                      <span><strong>Aadhar Number</strong></span>
 
-                     <input type="text" name="adhaar_no" value="<?php echo $adhaar_no; ?>" placeholder="Enter Adhar Number"  class="form-control" autocomplete="off"><br>
+                     <input type="text" name="adhaar_no" value="<?php echo $adhaar_no; ?>" placeholder="Enter Aadhar Number"  class="form-control" autocomplete="off"><br>
 
                       <span><strong>Ration Number</strong></span>
 
                      <input type="text" name="ration_no" value="<?php echo $ration_no; ?>"  placeholder="Enter Ration Number" class="form-control " autocomplete="off"><br>
+					 <span><strong>Other ID Proof </strong></span>
+					 <input type="text" name="other_id_proof" value="<?php echo $other_id_proof; ?>"  placeholder="Other ID Proof" class="form-control " autocomplete="off"><br>
 
                     
 

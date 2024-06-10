@@ -161,7 +161,7 @@ if($fromdate!="" && $todate!="")
 
 //	$todate = $cmn->dateformatusa($todate);
 
-	$con .= " and  camp_date between '$fromdate' and '$todate'";
+	$camp_date = " and  camp_date between '$fromdate' and '$todate'";
 
 
 
@@ -201,49 +201,7 @@ if($districtid !='') {
 
 ?>
 
-<!DOCTYPE html>
-
-<html lang="en">
-
-<head>
-
-		<meta charset="utf-8">
-
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui">
-
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-	
-
-	<title>SAVIOUR</title>
-
-	<meta content="Admin Dashboard" name="description">
-
-	<meta content="Themesbrand" name="author">
-
-	<link rel="shortcut icon" href="image/suhlogo.png">
-
-	<link rel="stylesheet" href="../plugins/morris/morris.css">
-
-	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-
-	<link href="assets/css/icons.css" rel="stylesheet" type="text/css">
-
-	<link href="assets/css/style.css" rel="stylesheet" type="text/css">
-
-</head>
-
-
-
-<body>
+<?php include("inc/body.php");?>
 
 
 
@@ -282,7 +240,6 @@ if($districtid !='') {
 		<div class="card mt-12">
 
 		<div class="card-header">
-
 						<h4 class="card-title">Medical Camp Report</h4>
 
 		</div>
@@ -295,170 +252,169 @@ if($districtid !='') {
 
                 	<tr>
 
-						<td style="width: 20%;">From Month</td>
+						<td style="width: 15%;">From Month</td>
 
-                        <td style="width: 20%;">To Month</td>
+                        <td style="width: 15%;">To Month</td>
 
                         <td style="width: 20%;">District Name</td>
 
                         <td style="width: 20%;">ULB Name </td>
 
                           <td style="width: 20%;">Shelter Name</td>
+						  <td style="width: 10%;"></td>
 
 						</tr>
 
                         <tr>
 
-                          <td style="width: 20%;"><input type="month" name="fromdate" id="fromdate" class="input-small form-control"  placeholder='dd-mm-yyyy'
+                          	<td style="width: 15%;">
+						  		<input type="month" name="fromdate" id="fromdate" class="input-small form-control"  placeholder='dd-mm-yyyy'
 
-                     value="<?php echo $fromdate; ?>" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask /> </td>
+                     			value="<?php echo $fromdate; ?>" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask /> 
+							</td>
                     
 
-					 <td style="width: 20%;"><input type="month" name="todate" id="todate" class="input-small form-control"  placeholder='dd-mm-yyyy'
+					 		<td style="width: 15%;">
+								<input type="month" name="todate" id="todate" class="input-small form-control"  placeholder='dd-mm-yyyy'
 
-						value="<?php echo $fromdate; ?>" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask /> </td>
+								value="<?php echo $fromdate; ?>" data-inputmask="'alias': 'dd-mm-yyyy'" data-mask /> 
+							</td>
 
-                       <td style="widtd: 20%;">
+                       		<td style="widtd: 20%;">
 
-                      	<?php if($usertype=='SHELTER')
+								<?php if($usertype=='SHELTER')
 
-                        { ?>
+								{ ?>
 
-                        <input  type="hidden"  name="districtid" value="<?php echo $districtid; ?>"  id="districtid" class="form-control" autocomplete="off">
+								<input  type="hidden"  name="districtid" value="<?php echo $districtid; ?>"  id="districtid" class="form-control" autocomplete="off">
 
-                           <input  type="text"  name="district" value="<?php echo $district; ?>"  id="district"  readonly class="form-control" autocomplete="off">
+								<input  type="text"  name="district" value="<?php echo $district; ?>"  id="district"  readonly class="form-control" autocomplete="off">
 
-                        
+								
 
-                        <?php } else { ?>
-
-							
-
-							 <select  name="districtid" id="districtid" onChange="getulb();getshelter();"  class="form-control"><option value="">-- Select District--</option>
-
-                        <?php $dist=mysqli_query($connection,"SELECT * FROM m_district $condata order by districtname asc");
-
-							while($data=mysqli_fetch_array($dist)){
+								<?php } else { ?>
 
 							
 
-								?>
+								<select  name="districtid" id="districtid" onChange="getulb();getshelter();"  class="form-control"><option value="">-- Select District--</option>
 
-							  <option value="<?php echo $data['districtid']; ?>"><?php echo ucfirst(strtolower($data['districtname'])); ?></option>
+									<?php $dist=mysqli_query($connection,"SELECT districtid,districtname FROM m_district $condata order by districtname asc");
 
-						<?php } ?>
+										while($data=mysqli_fetch_array($dist)){
 
-                     </select>
-
-                         <script>document.getElementById('districtid').value='<?php echo $districtid; ?>'; </script>
-
-							
-
-							<?php }?>
-
-						</td>
-
-						
-
-						<td style="widtd: 20%;">
-
-							<?php if($usertype=='SHELTER')
-
-                        { ?>
-
-                        <input  type="hidden"  name="ulbid" value="<?php echo $ulbid; ?>"  id="ulbid" class="form-control" autocomplete="off">
-
-                           <input  type="text"  name="ulbname" value="<?php echo $ulbname; ?>"  id="ulbname"  readonly class="form-control" autocomplete="off">
-
-                        
-
-                        <?php } else { ?>
-
-							
-
-						 <select  name="ulbid" id="ulbid" onChange="getshelter();"  class="form-control"><option value="">-- Select --</option>
-
-                        <?php $dist=mysqli_query($connection,"select * from ulb_master $conulb order by ulbname asc");
-
-							while($data=mysqli_fetch_array($dist)){?>
-
-							  <option value="<?php echo $data['ulbid']; ?>"><?php echo ucfirst(strtolower($data['ulbname'])); ?></option>
-
-						<?php } ?>
-
-                     </select>
-
-                       <script>document.getElementById('ulbid').value='<?php echo $ulbid; ?>'; </script>
-
-							
-
-							<?php }?>
-
-						</td>
-
-						
-
-						<td style="widtd: 20%;">
-
-                      	<?php if($usertype=='SHELTER')
-
-                        { ?>
-
-                        <input  type="hidden"  name="ngoid" value="<?php echo $ngoid; ?>"  id="ngoid" class="form-control" autocomplete="off">
-
-                           <input  type="text"  name="ngo" value="<?php echo $ngo; ?>"  id="ngo"  readonly class="form-control" autocomplete="off">
-
-                        
-
-                        <?php } else { ?>
-
-							
-
-						        <select name="ngoid" id="ngoid"  class="form-control" onChange="getdetails(this.value);">
-
-                       <option value="">-Select Shelter Name-</option>
-
-                                            <?php 
-
-											$sql1 = "select distinct ngoname,ngoid from m_ngo $con order by ngoname asc";
-
-											$res1 = mysqli_query($connection,$sql1);
-
-											while($row1 = mysqli_fetch_array($res1))
-
-												{
-
-													
+										
 
 											?>
 
-                                          			<option value="<?php echo $row1['ngoid']; ?>"><?php echo $row1['ngoname']; ?></option>
+										<option value="<?php echo $data['districtid']; ?>"><?php echo ucfirst(strtolower($data['districtname'])); ?></option>
 
-                                            <?php
+									<?php } ?>
 
-												}
+								</select>
 
-												
+								<script>document.getElementById('districtid').value='<?php echo $districtid; ?>'; </script>
 
-												?>
+								
+											
+								<?php }?>
 
-                                      </select>  
+							</td>
 
-                                         <script>document.getElementById('ngoid').value='<?php echo $ngoid; ?>'; </script>
+						
+
+						<td style="widtd: 20%;">
+
+								<?php if($usertype=='SHELTER')
+
+							{ ?>
+
+							<input  type="hidden"  name="ulbid" value="<?php echo $ulbid; ?>"  id="ulbid" class="form-control" autocomplete="off">
+
+							<input  type="text"  name="ulbname" value="<?php echo $ulbname; ?>"  id="ulbname"  readonly class="form-control" autocomplete="off">
 
 							
 
-							<?php }?>
+							<?php } else { ?>
 
-                       </td>
+								
 
-                       <td >
+							<select  name="ulbid" id="ulbid" onChange="getshelter();"  class="form-control"><option value="">-- Select --</option>
+
+								<?php $dist=mysqli_query($connection,"select ulbid,ulbname from ulb_master $conulb order by ulbname asc");
+
+									while($data=mysqli_fetch_array($dist)){?>
+
+									<option value="<?php echo $data['ulbid']; ?>"><?php echo ucfirst(strtolower($data['ulbname'])); ?></option>
+
+								<?php } ?>
+
+							</select>
+
+							<script>document.getElementById('ulbid').value='<?php echo $ulbid; ?>'; </script>
+
+								
+
+								<?php }?>
+
+						</td>
+
+						
+
+						<td style="widtd: 20%;">
+
+								<?php if($usertype=='SHELTER')
+
+								{ ?>
+
+								<input  type="hidden"  name="ngoid" value="<?php echo $ngoid; ?>"  id="ngoid" class="form-control" autocomplete="off">
+
+								<input  type="text"  name="ngo" value="<?php echo $ngo; ?>"  id="ngo"  readonly class="form-control" autocomplete="off">
+
+								
+
+								<?php } else { ?>
+
+									
+
+										<select name="ngoid" id="ngoid"  class="form-control" onChange="getdetails(this.value);">
+
+							<option value="">-Select Shelter Name-</option>
+
+													<?php 
+
+													echo $sql1 = "select distinct ngoname,ngoid from m_ngo $con order by ngoname asc";
+
+													$res1 = mysqli_query($connection,$sql1);
+
+													while($row1 = mysqli_fetch_array($res1)){ ?>
+
+															<option value="<?php echo $row1['ngoid']; ?>"><?php echo $row1['ngoname']; ?></option>
+
+													<?php
+
+														}
+
+														
+
+														?>
+
+											</select>  
+
+												<script>document.getElementById('ngoid').value='<?php echo $ngoid; ?>'; </script>
+
+									
+
+									<?php }?>
+
+                       	</td>
+
+                       <td style="widtd: 10%;">
 
                        
 
-						     <input type="submit" name="submit" value="Submit"  style="width:100px; float:none;" class="site-btn">
+						     <input type="submit" name="submit" value="Submit"  class="btn btn-success site-btn">
 
-                            <button ><a href="medical_report.php"> Clear </a></button>  
+                            <button class="btn btn-warning "><a href="medical_report.php"> Clear </a></button>  
 
 						</td>
 
@@ -486,7 +442,7 @@ if($districtid !='') {
 
     
 
-    <table class="table table-bordered table-striped">
+    <table id="dataTable" class="table display">
 
 		 	  <thead>
 
@@ -530,7 +486,7 @@ if($districtid !='') {
                 $sqql=mysqli_query($connection,"select * from m_ngo $crit order by districtid,ulbid,ngoname");
 				  while($row=mysqli_fetch_array($sqql)){
 				    //   echo "select * from  medical_camp  where $con and ngoid='$row[ngoid]'  order by medid desc";
-				  $shelterdetail=mysqli_query($connection,"select * from  medical_camp  $con and ngoid='$row[ngoid]'  order by medid desc");
+				  $shelterdetail=mysqli_query($connection,"select * from  medical_camp  $con $camp_date and ngoid='$row[ngoid]'  order by medid desc");
 
 				  $get_data=mysqli_fetch_array($shelterdetail);
                   $count=mysqli_num_rows($shelterdetail);
@@ -767,12 +723,15 @@ if($districtid !='') {
 
 }
 
+$(document).ready(function() {
+    $('#dataTable').dataTable( {
+       
+    } );
+} );
   </script>
 
 
 
 </body>
-
-<!-- Mirrored from themesbrand.com/lexa/html/horizontal/form-elements.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 13 Aug 2019 07:19:42 GMT -->
 
 </html>

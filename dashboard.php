@@ -43,8 +43,8 @@ $totngoid = $cmn->getvalfield($connection,"m_ngo","count(ngoid)","$condata1");
 $totshelter = $cmn->getvalfield($connection,"m_ngo","count(ngoid)","$condata1");
 
 $totdesign_capacity = $cmn->getvalfield($connection,"m_ngo","sum(design_capacity)","$condata1");
-$male_totdesign_capacity = $cmn->$cmn->getvalfield($connection,"m_ngo","sum(design_capacity)","$condata1");
-$female_totdesign_capacity = $cmn->getvalfield($connection,"m_ngo","sum(design_capacity)","$condata1");
+$totdesign_capacity_male = $cmn->getvalfield($connection,"m_ngo","sum(men)","$condata1");
+$totdesign_capacity_female = $cmn->getvalfield($connection,"m_ngo","sum(women)","$condata1");
 $totrapid = $cmn->getvalfield($connection,"rapidsurvey","count(surveyid)","$conuser1  and conductdate BETWEEN '$firstdate' AND '$currentdate'  and (men1>0 || women1>0 || children1>0 || PWP1>0) ");
 
 $totthirdparty = $cmn->getvalfield($connection,"thirdpartysurey","count(surveyid)","$conuser1  and conductdate BETWEEN '$firstdate' AND '$currentdate' ");
@@ -247,9 +247,9 @@ $pre_totthirdparty = $cmn->getvalfield($connection,"thirdpartysurey","count(surv
 
                <a href="shelterwisereport.php" style="color:#FFF";> <div class="col-xl-6 col-md-6"  >Shelters : <?php echo $totshelter;?></div></a>
 
-             <div class="col-xl-6 col-md-6" style="height: 37px;">Male : <?php echo $totdesign_capacity;?> </div>
+             <div class="col-xl-6 col-md-6" style="height: 37px;">Capacity : <?php echo $totdesign_capacity;?> </div>
 
-             <div class="col-xl-6 col-md-6" style="height: 37px;">Famale : <?php echo $totdesign_capacity;?> </div>
+            <div class="col-xl-6 col-md-6" style="height: 37px;">Male : <?php echo $totdesign_capacity_male;?> </div><div class="col-xl-6 col-md-6" style="height: 37px;">Women : <?php echo $totdesign_capacity_female;?> </div>
 
              </div>
 
